@@ -10,7 +10,7 @@ package Config;
  * @author AETERNAM113
  */
 public class Credentials {
-    public static final String DATABASE = "bloc_notas";
+    public static final String DATABASE = "pia";
     public static final String USERNAME = "root";
     public static final String PASSWORD = "";
     public static final String SERVER = "localhost"; 

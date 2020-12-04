@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class NoteController{
     private Note note;
 
-    public NoteController(Note note) {
-        this.note = note;
+    public NoteController() {
+        this.note = new Note();
     }
     
     public void index () {

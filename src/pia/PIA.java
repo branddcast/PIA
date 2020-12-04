@@ -7,7 +7,6 @@ package pia;
 
 import java.sql.*;
 import Controllers.NoteController;
-import Models.Note;
 
 /**
  *
@@ -17,9 +16,10 @@ public class PIA {
 
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
      */
     public static void main(String[] args) throws SQLException {
-        NoteController note = new NoteController(new Note());
+        NoteController note = new NoteController();
         note.edit(1);
         note.index();
     }

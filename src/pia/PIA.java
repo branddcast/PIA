@@ -32,14 +32,18 @@ public class PIA {
         //producto.findProductoById(1);
         
         Query query = new Query();
-        ArrayList<Hashtable> queryList = query.select("SELECT * FROM productos");
+        ArrayList<Hashtable> queryList = query.select("SELECT " + 
+                " productos.id, productos.producto, consumos.claveReporte, consumos.planta "+ 
+                " FROM consumos INNER JOIN " +
+                " productos ON consumos.producto = productos.producto");
         
         for(int i = 0; i < queryList.size(); i++){
             Hashtable data = queryList.get(i);
-            System.out.print(data.get("id") + " ");
+            System.out.println(data);
+            /*System.out.print(data.get("id") + " ");
             System.out.print(data.get("producto") + " ");
             System.out.print(data.get("descripcion") + " ");
-            System.out.print(data.get("precioUnitario") + " \n");
+            System.out.print(data.get("precioUnitario") + " \n");*/
         }
     }
     

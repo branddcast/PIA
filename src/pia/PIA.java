@@ -60,6 +60,8 @@ public class PIA {
                 " productos.id, productos.producto, consumos.claveReporte, consumos.planta "+ 
                 " FROM consumos INNER JOIN " +
                 " productos ON consumos.producto = productos.producto");
+
+        //ArrayList<Hashtable> queryList = query.select("SELECT * FROM consumos");
         
         for(int i = 0; i < queryList.size(); i++){
             Hashtable data = queryList.get(i);

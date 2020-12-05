@@ -32,7 +32,7 @@ public class PIA {
         //producto.findProductoById(1);
         
         Query query = new Query();
-        ArrayList<Hashtable> queryList = query.select("SELECT * FROM productos");
+        ArrayList<Hashtable> queryList = query.select("SELECT * FROM consumos");
         
         for(int i = 0; i < queryList.size(); i++){
             Hashtable data = queryList.get(i);

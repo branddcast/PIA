@@ -47,7 +47,7 @@ public class PIA {
         nuevoReporte.setNombreDepto("JUGUETERIA");
         
         nuevoReporte.header();
-        
+            //Notas
             /*NoteController note = new NoteController();
             note.edit(1);
             note.index();*/

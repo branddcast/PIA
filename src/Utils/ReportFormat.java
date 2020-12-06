@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,26 +20,29 @@ import java.util.logging.Logger;
  * @author AETERNAM113
  */
 public class ReportFormat extends FormattingInputs{
-    private String noPrograma;
-    private String fecha;
-    private String planta;
-    private String nombrePlanta;
-    private String hoja;
-    private String depto;
-    private String nombreDepto;
-    private String codigo;
-    private String descripcion;
-    private double almacenConsumo;
-    private double almacenImporte;
-    private double prodConsumo;
-    private double prodImporte;
-    private double difConsumo;
-    private double difImporte;
-    private String aFavorDe;
-    private double totalalmacen;
-    private double totalAFavorAlmacen;
-    private double totalProd;
-    private double totalAFavorProd;
+    private String noPrograma = "000000";
+    private final String fecha = formatDate(new Date(Calendar.getInstance().getTimeInMillis()));
+    private String planta = "000";
+    private String nombrePlanta = "";
+    private String hoja = "0000";
+    private String depto = "000000";
+    private String nombreDepto = "";
+    private String codigo = "000000";
+    private String descripcion = "";
+    private int almacenConsumo = 0;
+    private int almacenImporte = 0;
+    private int prodConsumo = 0;
+    private int prodImporte = 0;
+    private int difConsumo = 0;
+    private int difImporte = 0;
+    private String aFavorDe = "";
+    private int totalalmacen = 0;
+    private int totalAFavorAlmacen = 0;
+    private int totalProd = 0;
+    private int totalAFavorProd = 0;
+    private int precioUnitario = 0;
+    private int totalAlmacenImporte = 0;
+    private int totalProdImporte = 0;
     
     PrintWriter out;
     FileWriter output;
@@ -46,45 +51,12 @@ public class ReportFormat extends FormattingInputs{
         this.openFile(file);
     }
 
-    public ReportFormat(File file, String noPrograma, String fecha, String planta, String nombrePlanta, String hoja, String depto, String nombreDepto, String codigo, String descripcion, double almacenConsumo, double almacenImporte, double prodConsumo, double prodImporte, double difConsumo, double difImporte, String aFavorDe, double totalalmacen, double totalAFavorAlmacen, double totalProd, double totalAFavorProd) throws IOException {
-        this.noPrograma = noPrograma;
-        this.fecha = fecha;
-        this.planta = planta;
-        this.nombrePlanta = nombrePlanta;
-        this.hoja = hoja;
-        this.depto = depto;
-        this.nombreDepto = nombreDepto;
-        this.codigo = codigo;
-        this.descripcion = descripcion;
-        this.almacenConsumo = almacenConsumo;
-        this.almacenImporte = almacenImporte;
-        this.prodConsumo = prodConsumo;
-        this.prodImporte = prodImporte;
-        this.difConsumo = difConsumo;
-        this.difImporte = difImporte;
-        this.aFavorDe = aFavorDe;
-        this.totalalmacen = totalalmacen;
-        this.totalAFavorAlmacen = totalAFavorAlmacen;
-        this.totalProd = totalProd;
-        this.totalAFavorProd = totalAFavorProd;
-        
-        this.openFile(file);
-    }
-    
     public String getNoPrograma() {
         return noPrograma;
     }
 
     public void setNoPrograma(String noPrograma) {
         this.noPrograma = noPrograma;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
     }
 
     public String getPlanta() {
@@ -143,51 +115,51 @@ public class ReportFormat extends FormattingInputs{
         this.descripcion = descripcion;
     }
 
-    public double getAlmacenConsumo() {
+    public int getAlmacenConsumo() {
         return almacenConsumo;
     }
 
-    public void setAlmacenConsumo(double almacenConsumo) {
+    public void setAlmacenConsumo(int almacenConsumo) {
         this.almacenConsumo = almacenConsumo;
     }
 
-    public double getAlmacenImporte() {
+    public int getAlmacenImporte() {
         return almacenImporte;
     }
 
-    public void setAlmacenImporte(double almacenImporte) {
+    public void setAlmacenImporte(int almacenImporte) {
         this.almacenImporte = almacenImporte;
     }
 
-    public double getProdConsumo() {
+    public int getProdConsumo() {
         return prodConsumo;
     }
 
-    public void setProdConsumo(double prodConsumo) {
+    public void setProdConsumo(int prodConsumo) {
         this.prodConsumo = prodConsumo;
     }
 
-    public double getProdImporte() {
+    public int getProdImporte() {
         return prodImporte;
     }
 
-    public void setProdImporte(double prodImporte) {
+    public void setProdImporte(int prodImporte) {
         this.prodImporte = prodImporte;
     }
 
-    public double getDifConsumo() {
+    public int getDifConsumo() {
         return difConsumo;
     }
 
-    public void setDifConsumo(double difConsumo) {
+    public void setDifConsumo(int difConsumo) {
         this.difConsumo = difConsumo;
     }
 
-    public double getDifImporte() {
+    public int getDifImporte() {
         return difImporte;
     }
 
-    public void setDifImporte(double difImporte) {
+    public void setDifImporte(int difImporte) {
         this.difImporte = difImporte;
     }
 
@@ -199,36 +171,60 @@ public class ReportFormat extends FormattingInputs{
         this.aFavorDe = aFavorDe;
     }
 
-    public double getTotalalmacen() {
+    public int getTotalalmacen() {
         return totalalmacen;
     }
 
-    public void setTotalalmacen(double totalalmacen) {
+    public void setTotalalmacen(int totalalmacen) {
         this.totalalmacen = totalalmacen;
     }
 
-    public double getTotalAFavorAlmacen() {
+    public int getTotalAFavorAlmacen() {
         return totalAFavorAlmacen;
     }
 
-    public void setTotalAFavorAlmacen(double totalAFavorAlmacen) {
+    public void setTotalAFavorAlmacen(int totalAFavorAlmacen) {
         this.totalAFavorAlmacen = totalAFavorAlmacen;
     }
 
-    public double getTotalProd() {
+    public int getTotalProd() {
         return totalProd;
     }
 
-    public void setTotalProd(double totalProd) {
+    public void setTotalProd(int totalProd) {
         this.totalProd = totalProd;
     }
 
-    public double getTotalAFavorProd() {
+    public int getTotalAFavorProd() {
         return totalAFavorProd;
     }
 
-    public void setTotalAFavorProd(double totalAFavorProd) {
+    public void setTotalAFavorProd(int totalAFavorProd) {
         this.totalAFavorProd = totalAFavorProd;
+    }
+
+    public int getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(int precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public int getTotalAlmacenImporte() {
+        return totalAlmacenImporte;
+    }
+
+    public void setTotalAlmacenImporte(int totalAlmacenImporte) {
+        this.totalAlmacenImporte = totalAlmacenImporte;
+    }
+
+    public int getTotalProdImporte() {
+        return totalProdImporte;
+    }
+
+    public void setTotalProdImporte(int totalProdImporte) {
+        this.totalProdImporte = totalProdImporte;
     }
     
     private void openFile (File file) throws IOException {
@@ -242,20 +238,58 @@ public class ReportFormat extends FormattingInputs{
                     "FECHA\t" + completeInput(this.fecha, 11) + "\n\n\n" +
                     "ACME - DIV. NOMINA CONTABILIDAD \tP L A N T A\t" + completeInput(this.planta, 3) +" \t" +
                     completeInput(this.nombrePlanta, 50) + "\t  " + "HOJA " + completeInput(this.hoja, 4) + "\n\n" +
-                    "DEPTO. " + completeInput(this.depto, 6) + "\t" + completeInput(this.nombreDepto, 26) + "\n\n\n";
+                    "DEPTO. " + completeInput(this.depto, 6) + "\t" + completeInput(this.nombreDepto, 26) + "\n\n\n" +
+                    "\tPRODUCTO\t\t     REPORTE ALMACEN\t\t REPORTE PRODUCCION\t\t  DIFERENCIA ENTRE REPORTES\n\n" +
+                    "CODIGO      DESCRIPCION\t\t  CONSUMO\tIMPORTE \tCONSUMO       IMPORTE\t     CONSUMO\t   IMPORTE   \tA FAVOR DE\n" +
+                    "------\t---------------------\t-----------   -----------     -----------   -----------    -----------   -----------   ------------\n";
             this.output.write(headerText);
-            
-            this.output.close();
         } catch (IOException ex) {
             Logger.getLogger(ReportFormat.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public void body() {
-        //Crea el cuerpo del reporte para listar los productos
+        
+        this.almacenImporte = this.almacenConsumo * this.precioUnitario;
+        this.totalAlmacenImporte += this.almacenImporte;
+        this.prodImporte = this.prodConsumo * this.precioUnitario;
+        this.totalProdImporte += this.prodImporte;
+        this.difConsumo = Math.abs(this.almacenConsumo - this.prodConsumo);
+        this.difImporte = this.difConsumo * this.precioUnitario;
+        
+        if( this.almacenConsumo > this.prodConsumo ){
+            this.aFavorDe = "ALMACEN";
+            this.totalAFavorAlmacen += this.difImporte;
+        }else if( this.almacenConsumo < this.prodConsumo ){
+            this.aFavorDe = "PRODUCCION";
+            this.totalAFavorProd += this.difImporte;
+        }else
+            this.aFavorDe = "";
+        
+        try {
+            String bodyText = completeInput(this.codigo, 6) + "\t" + completeInput(this.descripcion, 21) + "\t" + completeInput(this.almacenConsumo, 11) + "   " + completeInput(this.almacenImporte, 11) +
+                    "     " + completeInput(this.prodConsumo, 11) + "   " + completeInput(this.prodImporte, 11) + "    " + completeInput(this.difConsumo, 11) + "   " +
+                    completeInput(this.difImporte, 11) + "   " + completeInput(this.aFavorDe, 12) + "\n";
+            this.output.write(bodyText);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ReportFormat.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void footer() {
-        //Crea el pie del reporte
+        
+        
+        
+        try {
+            String footerText = "\n\n\nTOTAL DEL DEPTO.\t" + completeInput(this.depto, 6) + "\t" + completeInput(this.nombreDepto, 26) + "\n\n\n" +
+                    "ALMACEN \tIMPORTE     " + completeInput(this.totalAlmacenImporte, 12) + "     DIFERENCIA A FAVOR     " + completeInput(this.totalAFavorAlmacen, 11) + "\n\n" +
+                    "PRODUCCION \tIMPORTE     " + completeInput(this.totalProdImporte, 12) + "     DIFERENCIA A FAVOR     " + completeInput(this.totalAFavorProd, 11) +
+                    "\n\n";
+            this.output.write(footerText);
+            this.output.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ReportFormat.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

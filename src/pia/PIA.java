@@ -27,9 +27,22 @@ import java.io.IOException;
 public class PIA {
 
     /**
+     * @param nuevoReporte
      * @param args the command line arguments
      * @throws java.sql.SQLException
      */
+    public static void limpiar(ReportFormat nuevoReporte) {
+        nuevoReporte.setDescripcion("");
+        nuevoReporte.setAlmacenConsumo(0);
+        nuevoReporte.setAlmacenImporte(0);
+        nuevoReporte.setProdConsumo(0);
+        nuevoReporte.setProdImporte(0);
+        nuevoReporte.setDifConsumo(0);
+        nuevoReporte.setDifImporte(0);
+        nuevoReporte.setaFavorDe("");
+        nuevoReporte.setPrecioUnitario(0);
+    }
+    
     public static void main(String[] args) throws SQLException, IOException {
         File reporte = new File("reporte.txt");
         
@@ -39,14 +52,45 @@ public class PIA {
         ReportFormat nuevoReporte = new ReportFormat(reporte);
         
         nuevoReporte.setNoPrograma("000123");
-        nuevoReporte.setFecha("02 DIC 2020");
         nuevoReporte.setPlanta("P01");
         nuevoReporte.setNombrePlanta("MITRAS NORTE. MONTERREY, NUEVO LEON");
         nuevoReporte.setHoja("1234");
         nuevoReporte.setDepto("D00023");
         nuevoReporte.setNombreDepto("JUGUETERIA");
-        
         nuevoReporte.header();
+        
+        // PRODUCTO 1
+        nuevoReporte.setCodigo("P00001");
+        nuevoReporte.setDescripcion("Producto 1");
+        nuevoReporte.setAlmacenConsumo(34);
+        nuevoReporte.setProdConsumo(54);
+        nuevoReporte.setPrecioUnitario(15);
+        
+        nuevoReporte.body();
+        
+        limpiar(nuevoReporte);
+        
+        // PRODUCTO 2
+        nuevoReporte.setCodigo("P00002");
+        nuevoReporte.setDescripcion("Producto 2");
+        nuevoReporte.setAlmacenConsumo(45);
+        nuevoReporte.setProdConsumo(22);
+        nuevoReporte.setPrecioUnitario(25);
+        
+        nuevoReporte.body();
+        
+        limpiar(nuevoReporte);
+        
+        // PRODUCTO 2
+        nuevoReporte.setCodigo("P00003");
+        nuevoReporte.setDescripcion("Producto 3");
+        nuevoReporte.setAlmacenConsumo(100);
+        nuevoReporte.setProdConsumo(42);
+        nuevoReporte.setPrecioUnitario(50);
+        
+        nuevoReporte.body();
+        
+        nuevoReporte.footer();
         
             /*NoteController note = new NoteController();
             note.edit(1);

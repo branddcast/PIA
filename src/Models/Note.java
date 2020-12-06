@@ -6,7 +6,6 @@
 package Models;
 
 import Config.Conexion;
-import com.mysql.cj.xdevapi.PreparableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

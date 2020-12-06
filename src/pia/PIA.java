@@ -92,6 +92,7 @@ public class PIA {
         
         nuevoReporte.footer();
         
+            //Notas
             /*NoteController note = new NoteController();
             note.edit(1);
             note.index();*/

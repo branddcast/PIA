@@ -44,6 +44,10 @@ public class ReportFormat extends FormattingInputs{
     private int totalAlmacenImporte = 0;
     private int totalProdImporte = 0;
     
+    private String headerText = "", 
+                   bodyText = "", 
+                   footerText = "";
+    
     PrintWriter out;
     FileWriter output;
 
@@ -232,8 +236,7 @@ public class ReportFormat extends FormattingInputs{
     }
     
     public void header() {
-        try {
-            String headerText = "\nP-" + completeInput(this.noPrograma, 6) + "\t\t\t" +
+        this.headerText = "\nP-" + completeInput(this.noPrograma, 6) + "\t\t\t" +
                     "R E P O R T E	C O M P A R A T I V O	D E	C O N S U M O S \t\t" +
                     "FECHA\t" + completeInput(this.fecha, 11) + "\n\n\n" +
                     "ACME - DIV. NOMINA CONTABILIDAD \tP L A N T A\t" + completeInput(this.planta, 3) +" \t" +
@@ -242,10 +245,6 @@ public class ReportFormat extends FormattingInputs{
                     "\tPRODUCTO\t\t     REPORTE ALMACEN\t\t REPORTE PRODUCCION\t\t  DIFERENCIA ENTRE REPORTES\n\n" +
                     "CODIGO      DESCRIPCION\t\t  CONSUMO\tIMPORTE \tCONSUMO       IMPORTE\t     CONSUMO\t   IMPORTE   \tA FAVOR DE\n" +
                     "------\t---------------------\t-----------   -----------     -----------   -----------    -----------   -----------   ------------\n";
-            this.output.write(headerText);
-        } catch (IOException ex) {
-            Logger.getLogger(ReportFormat.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     public void body() {
@@ -266,27 +265,24 @@ public class ReportFormat extends FormattingInputs{
         }else
             this.aFavorDe = "";
         
-        try {
-            String bodyText = completeInput(this.codigo, 6) + "\t" + completeInput(this.descripcion, 21) + "\t" + completeInput(this.almacenConsumo, 11) + "   " + completeInput(this.almacenImporte, 11) +
-                    "     " + completeInput(this.prodConsumo, 11) + "   " + completeInput(this.prodImporte, 11) + "    " + completeInput(this.difConsumo, 11) + "   " +
-                    completeInput(this.difImporte, 11) + "   " + completeInput(this.aFavorDe, 12) + "\n";
-            this.output.write(bodyText);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(ReportFormat.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.bodyText += completeInput(this.codigo, 6) + "\t" + completeInput(this.descripcion, 21) + "\t" + completeInput(this.almacenConsumo, 11) + "   " + completeInput(this.almacenImporte, 11) +
+            "     " + completeInput(this.prodConsumo, 11) + "   " + completeInput(this.prodImporte, 11) + "    " + completeInput(this.difConsumo, 11) + "   " +
+            completeInput(this.difImporte, 11) + "   " + completeInput(this.aFavorDe, 12) + "\n";
     }
     
     public void footer() {
-        
-        
+        this.footerText = "\n\n\nTOTAL DEL DEPTO.\t" + completeInput(this.depto, 6) + "\t" + completeInput(this.nombreDepto, 26) + "\n\n\n" +
+            "ALMACEN \tIMPORTE     " + completeInput(this.totalAlmacenImporte, 12) + "     DIFERENCIA A FAVOR     " + completeInput(this.totalAFavorAlmacen, 11) + "\n\n" +
+            "PRODUCCION \tIMPORTE     " + completeInput(this.totalProdImporte, 12) + "     DIFERENCIA A FAVOR     " + completeInput(this.totalAFavorProd, 11) +
+            "\n\n";
+    }
+    
+    public void makeReport () {
+        String report = this.headerText + this.bodyText + this.footerText;
         
         try {
-            String footerText = "\n\n\nTOTAL DEL DEPTO.\t" + completeInput(this.depto, 6) + "\t" + completeInput(this.nombreDepto, 26) + "\n\n\n" +
-                    "ALMACEN \tIMPORTE     " + completeInput(this.totalAlmacenImporte, 12) + "     DIFERENCIA A FAVOR     " + completeInput(this.totalAFavorAlmacen, 11) + "\n\n" +
-                    "PRODUCCION \tIMPORTE     " + completeInput(this.totalProdImporte, 12) + "     DIFERENCIA A FAVOR     " + completeInput(this.totalAFavorProd, 11) +
-                    "\n\n";
-            this.output.write(footerText);
+            this.output.write(report);
+            System.out.println("Reporte generado exitosamente");
             this.output.close();
         } catch (IOException ex) {
             Logger.getLogger(ReportFormat.class.getName()).log(Level.SEVERE, null, ex);

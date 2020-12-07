@@ -7,8 +7,6 @@ package pia;
 
 import Config.Query;
 import java.sql.*;
-import Controllers.NoteController;
-import Controllers.ProductoController;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -42,80 +40,63 @@ public class PIA {
         nuevoReporte.setaFavorDe("");
         nuevoReporte.setPrecioUnitario(0);
     }
-    
+
     public static void main(String[] args) throws SQLException, IOException {
+        String planta = "P01"; // Recibe este valor como parámetro
+        String tabla = "T04"; // Recibe este valor como parámetro
+        String depto = "D00001"; // Recibe este valor como parámetro
+        
+        String nombrePlanta = "";
+        
         File reporte = new File("reporte.txt");
-        
-        //Se crea un objeto de la clase ReportFormat para mandarle los datos que
-        //llenarán el reporte. 
-        
         ReportFormat nuevoReporte = new ReportFormat(reporte);
+        Query query = new Query();
         
-        nuevoReporte.setNoPrograma("000123");
-        nuevoReporte.setPlanta("P01");
-        nuevoReporte.setNombrePlanta("MITRAS NORTE. MONTERREY, NUEVO LEON");
-        nuevoReporte.setHoja("1234");
-        nuevoReporte.setDepto("D00023");
-        nuevoReporte.setNombreDepto("JUGUETERIA");
+        ArrayList<Hashtable> dataHeader = query.select("SELECT informacion FROM tablas WHERE claveTabla = \"T05\" AND llaveTabla = \""+(planta+depto)+"\"");
+        
+        ArrayList<Hashtable> queryList = query.select("SELECT \n"
+                + "p.producto,\n"
+                + "p.descripcion,\n"
+                + "p.precioUnitario,\n"
+                + "c.planta,\n"
+                + "c.claveReporte,\n"
+                + "c.departamento,\n"
+                + "c.cantConsumo,\n"
+                + "d.cantDevolucion,\n"
+                + "t.informacion,\n"
+                + "t.claveTabla\n"
+                + "FROM productos AS p\n"
+                + "INNER JOIN consumos AS c ON c.producto = p.producto\n"
+                + "INNER JOIN devoluciones AS d ON d.producto = p.producto\n"
+                + "INNER JOIN tablas AS t ON t.llaveTabla = c.planta\n"
+                + "WHERE c.planta = \""+planta+"\" and c.departamento = \""+depto+"\""
+                + "AND d.planta = \""+planta+"\" and d.departamento = \""+depto+"\"");
+
+        for (int i = 0; i < queryList.size(); i++) {
+            Hashtable data = queryList.get(i);
+
+            nuevoReporte.setCodigo(data.get("producto").toString());
+            nuevoReporte.setDescripcion(data.get("descripcion").toString());
+            nuevoReporte.setAlmacenConsumo(34); //Falta definir estos valores
+            nuevoReporte.setProdConsumo(54); //Falta definir estos valores
+            nuevoReporte.setPrecioUnitario(Integer.parseInt(data.get("precioUnitario").toString()));
+            
+            nombrePlanta = data.get("informacion").toString();
+            nuevoReporte.body();
+            limpiar(nuevoReporte);
+        }
+        
+        nuevoReporte.setNoPrograma(String.valueOf((int)(1000000*Math.random())));
+        nuevoReporte.setPlanta(planta);
+        nuevoReporte.setNombrePlanta(nombrePlanta);
+        nuevoReporte.setHoja(String.valueOf((int)(10000 * Math.random())));
+        nuevoReporte.setDepto(depto);
+        nuevoReporte.setNombreDepto(dataHeader.get(0).get("informacion").toString());
         nuevoReporte.header();
-        
-        // PRODUCTO 1
-        nuevoReporte.setCodigo("P00001");
-        nuevoReporte.setDescripcion("Producto 1");
-        nuevoReporte.setAlmacenConsumo(34);
-        nuevoReporte.setProdConsumo(54);
-        nuevoReporte.setPrecioUnitario(15);
-        
-        nuevoReporte.body();
-        
-        limpiar(nuevoReporte);
-        
-        // PRODUCTO 2
-        nuevoReporte.setCodigo("P00002");
-        nuevoReporte.setDescripcion("Producto 2");
-        nuevoReporte.setAlmacenConsumo(45);
-        nuevoReporte.setProdConsumo(22);
-        nuevoReporte.setPrecioUnitario(25);
-        
-        nuevoReporte.body();
-        
-        limpiar(nuevoReporte);
-        
-        // PRODUCTO 2
-        nuevoReporte.setCodigo("P00003");
-        nuevoReporte.setDescripcion("Producto 3");
-        nuevoReporte.setAlmacenConsumo(100);
-        nuevoReporte.setProdConsumo(42);
-        nuevoReporte.setPrecioUnitario(50);
-        
-        nuevoReporte.body();
-        
+
         nuevoReporte.footer();
         
-            //Notas
-            /*NoteController note = new NoteController();
-            note.edit(1);
-            note.index();*/
-            //ProductoController producto = new ProductoController();
-            //producto.index();
-            //producto.findProductoById(1);
-
-        Query query = new Query();
-        ArrayList<Hashtable> queryList = query.select("SELECT " + 
-                " productos.id, productos.producto, consumos.claveReporte, consumos.planta "+ 
-                " FROM consumos INNER JOIN " +
-                " productos ON consumos.producto = productos.producto");
-
-        //ArrayList<Hashtable> queryList = query.select("SELECT * FROM consumos");
-        
-        for(int i = 0; i < queryList.size(); i++){
-            Hashtable data = queryList.get(i);
-            System.out.println(data);
-            /*System.out.print(data.get("id") + " ");
-            System.out.print(data.get("producto") + " ");
-            System.out.print(data.get("descripcion") + " ");
-            System.out.print(data.get("precioUnitario") + " \n");*/
-        }
+        nuevoReporte.makeReport();
     }
-    
+
 }

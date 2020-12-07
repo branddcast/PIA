@@ -1,26 +1,26 @@
 
-P-000123			R E P O R T E	C O M P A R A T I V O	D E	C O N S U M O S 		FECHA	06 DIC 2020
+P-627152			R E P O R T E	C O M P A R A T I V O	D E	C O N S U M O S 		FECHA	06 DIC 2020
 
 
-ACME - DIV. NOMINA CONTABILIDAD 	P L A N T A	P01 	MITRAS NORTE. MONTERREY, NUEVO LEON               	  HOJA 1234
+ACME - DIV. NOMINA CONTABILIDAD 	P L A N T A	P01 	MONTERREY, NUEVO LEON                             	  HOJA 9958
 
-DEPTO. D00023	JUGUETERIA                
+DEPTO. D00001	JUGUETERIA                
 
 
 	PRODUCTO		     REPORTE ALMACEN		 REPORTE PRODUCCION		  DIFERENCIA ENTRE REPORTES
 
 CODIGO      DESCRIPCION		  CONSUMO	IMPORTE 	CONSUMO       IMPORTE	     CONSUMO	   IMPORTE   	A FAVOR DE
 ------	---------------------	-----------   -----------     -----------   -----------    -----------   -----------   ------------
-P00001	Producto 1           	         34           510              54           810             20           300   PRODUCCION  
-P00002	Producto 2           	         45         1,125              22           550             23           575   ALMACEN     
-P00003	Producto 3           	        100         5,000              42         2,100             58         2,900   ALMACEN     
+P00001	Producto 1           	         34           340              54           540             20           200   PRODUCCION  
+P00002	Producto 2           	         34           510              54           810             20           300   PRODUCCION  
+P00003	Producto 3           	         34           680              54         1,080             20           400   PRODUCCION  
 
 
 
-TOTAL DEL DEPTO.	D00023	JUGUETERIA                
+TOTAL DEL DEPTO.	D00001	JUGUETERIA                
 
 
-ALMACEN 	IMPORTE            6,635     DIFERENCIA A FAVOR           3,475
+ALMACEN 	IMPORTE            1,530     DIFERENCIA A FAVOR               0
 
-PRODUCCION 	IMPORTE            3,460     DIFERENCIA A FAVOR             300
+PRODUCCION 	IMPORTE            2,430     DIFERENCIA A FAVOR             900
 
